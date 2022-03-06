@@ -56,11 +56,11 @@ Arduino prog for BME680 sensor with WiFi, dis-/enabled Webserver and dis-/enable
 
 Webserver / website with firmware update message
 
-[[/wiki/img/web_02.png|Webserver with Firmware update message]]
+<img src="https://github.com/Zheng-Bote/ESP32_BME680_Webserver_MQTT-Client/wiki/img/web_02.png" />
 
 MQTT client (Terminal)
 
-[[/img/terminal_01.png|MQTT]]
+<img src="https://github.com/Zheng-Bote/ESP32_BME680_Webserver_MQTT-Client/wiki/img/terminal_01.png" />
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -147,4 +147,3 @@ ZHENG Robert Zhèng Bó Tè 郑 伯特
 Project Link: [https://github.com/Zheng-Bote/ESP32_BME680_Webserver_MQTT-Client](https://github.com/Zheng-Bote/ESP32_BME680_Webserver_MQTT-Client)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-

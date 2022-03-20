@@ -6,7 +6,11 @@
 #include <WiFi.h>
 #include <ESPmDNS.h>
 
- RZ_WiFi::RZ_WiFi(char *ssid, char *password) {
+RZ_WiFi::RZ_WiFi() {
+
+}
+
+RZ_WiFi::RZ_WiFi(char *ssid, char *password) {
   _ssid = ssid;
   _pwd = password;
   _counter = 0;

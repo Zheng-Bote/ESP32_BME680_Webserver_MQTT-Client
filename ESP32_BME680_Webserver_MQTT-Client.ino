@@ -14,17 +14,19 @@ SOURCE:
 DEPENDENCIES:
   - MQTT PubSubClient
   - Zanshin_BME680 (https://github.com/Zanduino/BME680)
+  - WiFiManager https://github.com/tzapu/WiFiManager
 
 Version | Date       | Developer  | Comments
 ------- | ---------- | ---------- | ---------------------------------------------------------------
 0.5.0   | 2022-02-19 | RZheng     | created
 1.0.0   | 2022-02-20 | RZheng     | added Webserver and MQTT client
 1.1.0   | 2022-02-27 | RZheng     | separated to libs, added ESP32 deep sleep
+1.2.0   | 2022-03-19 | RZheng     | added: optional WifiManager, optional automatic Firmware-Update
 */
 
  // ##### 
 const char* appTitle = "ESP32 Temperature/Humidity/Pressure/Gas Wifi Webserver & MQTT client";
-const char *appVersion = "1.1.0";
+const char *appVersion = "1.2.0";
 
 bool firmwareUpdateAvailable = false;
 const int led = 13;
@@ -41,9 +43,15 @@ unsigned long previousMillis = 0;
 #include "rz_mqtt.h"
 #include "rz_webserver.h"
 
+#include "rz_ota.h"
+
+  
+#include <WiFiManager.h>
+
 // create instances
 RZ_System *esp32System = new RZ_System(); 
-RZ_WiFi *mywifi = new RZ_WiFi(wifiSsid, wifiPassword);
+//RZ_WiFi *mywifi = new RZ_WiFi(wifiSsid, wifiPassword);
+RZ_WiFi *mywifi = new RZ_WiFi();
 RZ_Version *versions = new RZ_Version();
 RZ_HTTP *httpclient = new RZ_HTTP();
 RZ_BME680 *bme680sensor = new RZ_BME680();
@@ -60,6 +68,31 @@ void setup() {
   Serial.print("-- on "); Serial.println(esp32System->getHostName().c_str());
   
   Serial.print(F("- Initializing WiFi\n"));
+
+  WiFiManager wifiManager;    
+  // wifiManager.resetSettings();
+     
+  bool success = wifiManager.autoConnect(esp32System->getHostName().c_str(),"password");
+  if(!success) {
+    Serial.println("\n-- WiFi connect failed. => restart in 10 seconds\n");
+    delay(10000);
+    esp32System->doRestart();
+  } 
+  else {
+    Serial.print("\n-- Connected to ");
+    Serial.println(wifiManager.getWiFiSSID());
+    //Serial.print("-- IP-Address "); Serial.println(wifiManager.localIP());
+    Serial.print(F("- Initializing MDNS responder\n"));
+    if(mywifi->startMDNS(esp32System->getHostName())) {
+      bufferStr = esp32System->getHostName() + ".local";
+      Serial.print("-- MDNS started: "); Serial.println(bufferStr.c_str());
+    }
+    else {
+      Serial.println("-- MDNS failed");
+    }
+  }
+
+/*
   if(mywifi->startWiFi()) {
     Serial.print("\n-- Connected to ");
     Serial.println(wifiSsid);
@@ -79,6 +112,7 @@ void setup() {
     delay(10000);
     esp32System->doRestart();
   }
+*/
 
   if(CHECK_FIRMWARE) {
     checkVersion(versions->checkVersions(appVersion, httpclient->checkFirmware()));  
@@ -161,9 +195,9 @@ void checkVersion(int ret) {
     case 0: {Serial.println("-- current version is up to date"); break;}
     case 1: {Serial.println("-- current version is greater than Github version. Pls check"); break;}
     case 2: {
-      Serial.println("-- a new Firmware is available on Github"); 
+      Serial.println("-- a new Firmware is available"); 
       firmwareUpdateAvailable = true;
-      if(DO_FIRMWARE_UPDATE) {  }
+      if(DO_FIRMWARE_UPDATE) { rz_EspFwUpd(); }
       break;
     }
     default:

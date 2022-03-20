@@ -12,15 +12,15 @@ SOURCE:
   https://github.com/Zheng-Bote/ESP32_libs
 
 SYNTAX:
-	#include "ESP32/rz_wifi.h"
-	RZ_WiFi *wifi = new RZ_WiFi(char *ssid, char *password);
-	
-	bool wifi->startWiFi();
+    #include "ESP32/rz_wifi.h"
+    RZ_WiFi *wifi = new RZ_WiFi(char *ssid, char *password);
+    
+    bool wifi->startWiFi();
     IPAddress wifi->getIpAddr();
     bool wifi->startMDNS(std::string hostId);
 
 RETURN:
-	void
+    void
 
 HISTORY:
 Version | Date       | Developer        | Comments
@@ -39,6 +39,7 @@ Version | Date       | Developer        | Comments
 
 class RZ_WiFi {
   public:
+    RZ_WiFi();
     RZ_WiFi(char *ssid, char *password);
     bool startWiFi();
     IPAddress getIpAddr();

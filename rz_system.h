@@ -1,22 +1,22 @@
 /*
 TITLE: 
-	rz_system.h
+    rz_system.h
 
 BRIEF:
-	library
+    library
 
 DESC: 
-  Arduino library for ESP32 systems
+    Arduino library for ESP32 systems
 
 SOURCE: 
-  https://github.com/Zheng-Bote/ESP32_libs
+    https://github.com/Zheng-Bote/ESP32_libs
 
 SYNTAX:
-	#include "ESP32/rz_system.h"
-	RZ_System *esp32System = new RZ_System();
-	
+    #include "ESP32/rz_system.h"
+    RZ_System *esp32System = new RZ_System();
+
 RETURN:
-	void doRestart();
+    void doRestart();
     void doReset();
     uint8_t getChipRevision();
     uint8_t getCpuFreqMHz();

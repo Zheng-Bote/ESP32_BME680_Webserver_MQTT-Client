@@ -1,6 +1,6 @@
 /*
 TITLE: 
-	rz_version.h
+    rz_version.h
 
 BRIEF: 
     header only library
@@ -13,9 +13,9 @@ SOURCE:
   https://github.com/Zheng-Bote/ESP32_libs
 
 SYNTAX:
-  #include "rz_version.h"
-  RZ_Version *versions = new RZ_Version();
-  int ret = versions->checkVersions("1.0.0", "1.1.0");
+    #include "rz_version.h"
+    RZ_Version *versions = new RZ_Version();
+    int ret = versions->checkVersions("1.0.0", "1.1.0");
 
 RETURN:
   int

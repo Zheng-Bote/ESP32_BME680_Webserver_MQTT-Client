@@ -102,7 +102,7 @@ install the Arduino IDE or use the web online version
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] optional automatic firmware update
+- [x] optional automatic firmware update
 - [ ] enabling MQTT subscribing
 - [ ] ???
 

@@ -52,6 +52,7 @@ Arduino prog for BME680 sensor with WiFi, dis-/enabled Webserver and dis-/enable
 * optional: MQTT client intervall publishing (customizable)
 * optional: MQTT publish data and do ESP32 deep sleep intervall (customizable) 
 
+
 **Screenshots**
 
 Webserver / website with firmware update message
@@ -98,6 +99,28 @@ install the Arduino IDE or use the web online version
 4. load firmware on ESP32
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+### configuration
+
+1. customize the credentials.h to your environment
+
+2. libraries
+
+the recommended way to use the libraries would be to install the additional <a href="https://github.com/Zheng-Bote/ESP32_libs" alt="ESP32_libs" title="https://github.com/Zheng-Bote/ESP32_libs">ESP32_libs</a>
+
+and replace
+
+old:
+```
+#include "myESP32lib.h"
+```
+
+new:
+```
+#include <ESP32_libs/myESP32lib.h>
+```
 
 <!-- ROADMAP -->
 ## Roadmap
